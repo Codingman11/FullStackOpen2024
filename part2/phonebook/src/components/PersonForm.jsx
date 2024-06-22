@@ -1,5 +1,5 @@
 import { useState } from "react"
-
+import personService from '../services/persons'
 
 
 const PersonForm = ({ persons, setPersons }) => {
@@ -11,18 +11,44 @@ const PersonForm = ({ persons, setPersons }) => {
     const handleNumberChange = (event) => {
         setNewNumber(event.target.value)
     }
+
+    const isAlreadyPerson = (name, number) => {
+        return persons.some(person => person.name === name && person.number === number)
+    }
     const addPerson = (event) => {
         event.preventDefault()
         const personObject = {
             name: newName,
-            number: newNumber,
-            id: persons.length + 1
+            number: newNumber
         }
-        if (persons.some((person) => person.name === personObject.name && person.number === personObject.number)) {
-            alert(`${newName} is already added to phonebook`)
+        if (isAlreadyPerson(newName, newNumber)) {
+            alert(`${newName} with number ${newNumber} is already added to phonebook.`);
         } else {
-            setPersons(persons.concat(personObject))
+            const exisitingPerson = persons.find(person => person.name === personObject.name)
+            if (exisitingPerson) {
+                const confirmUser = confirm(`${personObject.name} is already added to phonebook, replace the old number with a new one?`)
+                if (confirmUser) {
+                    personService
+                        .update(exisitingPerson.id, personObject)
+                        .then(updatedPerson => {
+                            setPersons(persons.map(person =>
+                                person.id !== exisitingPerson.id ? person : updatedPerson
+                            ))
+                        })
+                    setNewName('')
+                    setNewNumber('')
+                }
+            } else {
+                personService
+                .create(personObject)
+                .then(returnedPerson => {
+                    setPersons(persons.concat(returnedPerson))
+                    setNewName('')
+                    setNewNumber('')
+                })
+            }
         }
+       
         setNewName('')
         setNewNumber('')
     }
