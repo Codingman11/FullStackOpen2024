@@ -2,7 +2,7 @@ import { useState } from "react"
 import personService from '../services/persons'
 
 
-const PersonForm = ({ persons, setPersons }) => {
+const PersonForm = ({ persons, setPersons, setNotificationMessage }) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const handlePersonChange = (event) => {
@@ -22,7 +22,8 @@ const PersonForm = ({ persons, setPersons }) => {
             number: newNumber
         }
         if (isAlreadyPerson(newName, newNumber)) {
-            alert(`${newName} with number ${newNumber} is already added to phonebook.`);
+            setNotificationMessage(`${newName} with number ${newNumber} is already added to phonebook.`)
+            
         } else {
             const exisitingPerson = persons.find(person => person.name === personObject.name)
             if (exisitingPerson) {
@@ -35,6 +36,10 @@ const PersonForm = ({ persons, setPersons }) => {
                                 person.id !== exisitingPerson.id ? person : updatedPerson
                             ))
                         })
+                    setNotificationMessage(`${personObject.name} number is changed`)
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 3000)
                     setNewName('')
                     setNewNumber('')
                 }
@@ -46,6 +51,10 @@ const PersonForm = ({ persons, setPersons }) => {
                     setNewName('')
                     setNewNumber('')
                 })
+                setNotificationMessage(`${personObject.name} is added.`)
+                    setTimeout(() => {
+                        setNotificationMessage(null)
+                    }, 3000)
             }
         }
        
