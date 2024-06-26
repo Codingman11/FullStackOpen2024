@@ -1,13 +1,18 @@
 import { useState } from "react"
 
-const Country = ({country}) => {
+const Country = ({country, SelectedCountry, setSelectedCountry}) => {
     
+    const handleButtonClick = (country) => {
+        setSelectedCountry(country)
+    }
    
 
     return (
         <div>
-            <p>{country.name.common}</p>
+            {country.name.common}
+            <button onClick={() => {handleButtonClick(country)}}>Show</button>
         </div>
+        
     )
 }
 

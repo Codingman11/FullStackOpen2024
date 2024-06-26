@@ -4,11 +4,11 @@ import Country from './components/Country';
 import Countries from './components/Countries';
 
 
-function App() {
+const App = () => {
   const [value, setValue] = useState('');
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState('')
-  const [show, setShow] = useState(false)
+  const [selectedCountry, setSelectedCountry] = useState(null)
 
 //   useEffect(() => {
 //     const fetchCountries = async () => {
@@ -100,7 +100,7 @@ useEffect(() => {
             <Country key={country.cca3} country={country} />
           )
         )} */}
-        <Countries countries={countries}/>
+        <Countries countries={countries} selectedCountry={selectedCountry} setSelectedCountry={setSelectedCountry}/>
 
       </div>
     </div>

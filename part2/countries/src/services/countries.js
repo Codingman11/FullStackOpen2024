@@ -8,10 +8,10 @@ const getAll = () => {
     return req.then(res => res.data)
 }
 
-const getCountries = (query) => {
+const getCountry = (query) => {
     const req = axios.get(`${baseUrl}/api/name/${query}`)
     return req.then(res => res.data)
 }
 
 
-export default {getAll, getCountries}
+export default {getAll, getCountry}
