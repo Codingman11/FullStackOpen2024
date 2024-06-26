@@ -8,6 +8,7 @@ function App() {
   const [value, setValue] = useState('');
   const [countries, setCountries] = useState([]);
   const [error, setError] = useState('')
+  const [show, setShow] = useState(false)
 
 //   useEffect(() => {
 //     const fetchCountries = async () => {

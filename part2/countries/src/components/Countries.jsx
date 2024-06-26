@@ -7,7 +7,7 @@ const DisplayCountry = ({ country }) => {
 
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    //const [country, setCountry] = useState([]);
 
     useEffect(() => {
         axios
@@ -54,19 +54,33 @@ const DisplayCountry = ({ country }) => {
     )
 }
 
-
-const Countries = ({ countries }) => {
-
+const DisplayCou = ({country, onShow}) => {
     return (
+        <div>
+            <h2>{country.name.common}</h2>
+            <button onClick={onShow}>Show</button>
+        </div>
+    )
+}
+const Countries = ({ countries }) => {
+    // const handleButtonClick = (country) => {
+    //     setData('')
+    // }
+    return ( 
         <div>
             {countries.length === 1 ? (
 
                 <DisplayCountry country={countries[0]} />
             ) : (
-                countries.map(country =>
+                countries.map(country => 
                     <Country key={country.cca3} country={country} />
+                    
                 )
+                
             )}
+
+          
+            
         </div>
     )
 
