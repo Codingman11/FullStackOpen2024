@@ -8,6 +8,7 @@ const App = () => {
   const [persons, setPersons] = useState([])
   const [newFilter, setNewFilter] = useState('')
   const [notificationMessage, setNotificationMessage] = useState('')
+  const [notificationType, setNotificationType] = useState('') 
   
 
   //Getting the persons from database
@@ -41,11 +42,11 @@ const App = () => {
 
   return (
     <div>
-      <Notification notificationMessage={notificationMessage} noti/>
+      <Notification notificationMessage={notificationMessage} notificationType={notificationType} noti/>
       <h2>Phonebook</h2>
       <Filter newFilter={newFilter} setNewFilter={setNewFilter} />
       <h2>add a new</h2>
-      <PersonForm persons={persons} setPersons={setPersons} setNotificationMessage={setNotificationMessage} />
+      <PersonForm persons={persons} setPersons={setPersons} setNotificationMessage={setNotificationMessage} setNotificationType={setNotificationType} />
       <h2>Numbers</h2>
       <Persons persons={persons} newFilter={newFilter} setPersons={setPersons} handleDelete={handleDelete} />
     </div>

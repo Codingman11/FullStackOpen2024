@@ -2,7 +2,7 @@ import { useState } from "react"
 import personService from '../services/persons'
 
 
-const PersonForm = ({ persons, setPersons, setNotificationMessage }) => {
+const PersonForm = ({ persons, setPersons, setNotificationMessage, setNotificationType }) => {
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
     const handlePersonChange = (event) => {
@@ -35,6 +35,14 @@ const PersonForm = ({ persons, setPersons, setNotificationMessage }) => {
                             setPersons(persons.map(person =>
                                 person.id !== exisitingPerson.id ? person : updatedPerson
                             ))
+                        })
+                        .catch(err => {
+                            
+                            setNotificationMessage(`Information of ${personObject.name} has already been removed from server`)
+                            setNotificationType('error')
+                            // setTimeout(() => {
+                            //     setNotificationMessage(null)
+                            // }, 2500)
                         })
                     setNotificationMessage(`${personObject.name} number is changed`)
                     setTimeout(() => {

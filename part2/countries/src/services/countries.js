@@ -10,6 +10,7 @@ const getAll = () => {
 
 const getCountries = (query) => {
     const req = axios.get(`${baseUrl}/api/name/${query}`)
+    return req.then(res => res.data)
 }
 
 
